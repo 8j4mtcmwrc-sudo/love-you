@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Кохаю тебе ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial,sans-serif;
+}
+
+#heart{
+    position:relative;
+    width:800px;
+    height:800px;
+    animation:heartGlow 3s infinite;
+}
+
+@keyframes heartGlow{
+    0%{
+        opacity:0;
+        transform:scale(0.8);
+    }
+
+    20%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+    40%{
+        opacity:0.4;
+    }
+
+    60%{
+        opacity:1;
+    }
+
+    80%{
+        opacity:0.5;
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1.05);
+    }
+}
+
+.word{
+    position:absolute;
+    color:#ff3355;
+    font-size:14px;
+    white-space:nowrap;
+    opacity:0;
+
+    text-shadow:
+    0 0 5px #ff3355,
+    0 0 10px #ff3355,
+    0 0 20px #ff3355,
+    0 0 40px #ff3355;
+}
+
+.center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+
+    z-index:9999;
+
+    color:#ffffff;
+    font-size:70px;
+    font-weight:bold;
+    line-height:1.2;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 40px #ff3355,
+        0 0 80px #ff3355;
+
+    animation:textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow{
+    from{
+        transform:translate(-50%,-50%) scale(1);
+    }
+    to{
+        transform:translate(-50%,-50%) scale(1.05);
+    }
+}
+
+@keyframes showText{
+    from{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(0.5);
+    }
+    to{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+}
+</style>
+</head>
+<body>
+
+<div id="heart">
+    <div class="center">
+        КОХАЮ ТЕБЕ ❤️<br>
+        ДУЖЕ СИЛЬНООО
+    </div>
+</div>
+
+<script>
+
+const heart = document.getElementById("heart");
+const points = [];
+
+for(let i=0;i<1800;i++){
+
+    let t = Math.random()*Math.PI*2;
+    let r = Math.sqrt(Math.random());
+
+    let x = 16*Math.pow(Math.sin(t),3);
+    let y = -(13*Math.cos(t)
+        -5*Math.cos(2*t)
+        -2*Math.cos(3*t)
+        -Math.cos(4*t));
+
+    x *= r;
+    y *= r;
+
+    points.push({
+        x:x*20+400,
+        y:y*20+400
+    });
+}
+
+let index = 0;
+
+const draw = setInterval(()=>{
+
+    if(index >= points.length){
+        clearInterval(draw);
+        return;
+    }
+
+    const span = document.createElement("span");
+
+    span.className = "word";
+    span.innerText = "I LOVE YOU";
+
+    span.style.left = points[index].x + "px";
+    span.style.top = points[index].y + "px";
+
+    heart.appendChild(span);
+
+    span.animate(
+    [
+        {opacity:0},
+        {opacity:1}
+    ],
+    {
+        duration:500,
+        fill:"forwards"
+    });
+
+    index++;
+
+},3);
+
+</script>
+
+</body>
+</html>
